@@ -1,0 +1,19 @@
+name: Run Sonar Scan
+
+description: Run Sonar Scan
+
+inputs:
+  CICD_GITHUB_TOKEN:
+    required: true
+    description: TOKEN
+  SONAR_TOKEN:
+    required: true
+    description: TOKEN
+
+runs:
+  using: "composite"
+  steps:
+  - name: Baixando código do repositório
+    uses: actions/checkout@v4
+    with:
+      fetch-depth: 0
