@@ -31,28 +31,28 @@ runs:
   - name: Corrigindo caminhos no report do PHPUnit
     run: sed -i 's@'$GITHUB_WORKSPACE'/*@/github/workspace/@g' ./report/*.xml
     shell: bash
-  # - name: Enviando informações para o SonarQube
-  #   uses: sonarsource/sonarqube-scan-action@69c1a75940dec6249b86dace6b630d3a2ae9d2a7
-  #   with:
-  #     projectBaseDir: .
-  #     args: >
-  #       -Dsonar.projectKey=${{ github.event.repository.name }} -Dsonar.projectName=${{ github.event.repository.name }}
-  #   env:
-  #     SONAR_TOKEN: ${{ inputs.SONAR_TOKEN }}
-  #     SONAR_HOST_URL: ${{ inputs.SONAR_HOST_URL }}
+  - name: Enviando informações para o SonarQube
+    uses: sonarsource/sonarqube-scan-action@69c1a75940dec6249b86dace6b630d3a2ae9d2a7
+    with:
+      projectBaseDir: .
+      args: >
+        -Dsonar.projectKey=${{ github.event.repository.name }} -Dsonar.projectName=${{ github.event.repository.name }}
+    env:
+      SONAR_TOKEN: ${{ inputs.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ inputs.SONAR_HOST_URL }}
 
-  # - name: Esperando resultados do SonarQube Quality Gate
-  #   run: sleep 15
-  #   shell: bash
+  - name: Esperando resultados do SonarQube Quality Gate
+    run: sleep 15
+    shell: bash
 
-  # - name: Verificando SonarQube Quality Gate
-  #   uses: phwt/sonarqube-quality-gate-action@341631d80402a4aa6609bb887c8e10c785592747
-  #   with:
-  #     sonar-project-key: ${{ github.event.repository.name }}
-  #     sonar-host-url: ${{ inputs.SONAR_HOST_URL }}
-  #     sonar-token: ${{ inputs.SONAR_TOKEN }}
-  #     github-token: ${{ inputs.CICD_GITHUB_TOKEN }}
-  #     disable-pr-comment: false
-  #     fail-on-quality-gate-error: true
-  #   env:
-  #     TZ: "America/Sao_Paulo"
+  - name: Verificando SonarQube Quality Gate
+    uses: phwt/sonarqube-quality-gate-action@341631d80402a4aa6609bb887c8e10c785592747
+    with:
+      sonar-project-key: ${{ github.event.repository.name }}
+      sonar-host-url: ${{ inputs.SONAR_HOST_URL }}
+      sonar-token: ${{ inputs.SONAR_TOKEN }}
+      github-token: ${{ inputs.CICD_GITHUB_TOKEN }}
+      disable-pr-comment: false
+      fail-on-quality-gate-error: true
+    env:
+      TZ: "America/Sao_Paulo"
